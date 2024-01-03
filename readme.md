@@ -12,10 +12,10 @@ Welcome to **Treasure Quest: Terminal Adventure**, an engaging and interactive t
 
 ### Navigate the World
 Use simple commands to move through the game world:
-- Input `W` to move North.
-- Input `S` to move South.
-- Input `A` to move West.
-- Input `E` to move East.
+- "Key ↑" to move North
+- "Key ↓" to move South
+- "Key ←" to move West
+- "Key →" to move East
 
 ### Discover Clues and Paths
 As you journey through different locations, pay attention to the clues and paths that unfold. Each decision you make could lead you closer to the treasure or into the grasp of unforeseen challenges.
