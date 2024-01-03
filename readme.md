@@ -1,3 +1,5 @@
+![treasure-quest](https://github.com/gajevski/go-cli/assets/29663156/15307f89-4687-4293-b591-0f692893aa3a)
+
 # Treasure Quest: Terminal Adventure
 
 Welcome to **Treasure Quest: Terminal Adventure**, an engaging and interactive text-based game set in a mysterious world where treasures await the brave and clever. Your quest is simple yet thrilling: navigate through unknown terrains in search of the legendary treasure.
