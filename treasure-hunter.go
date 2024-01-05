@@ -3,6 +3,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/liamg/gobless"
 )
 
@@ -11,6 +13,8 @@ var (
 	controlBox  *gobless.TextBox
 	controlText string
 	gameText    string
+	boardX      int
+	boardY      int
 )
 
 func main() {
@@ -26,6 +30,8 @@ func startGame() {
 
 	controlText = ""
 	gameText = ""
+	boardX = 0
+	boardY = 0
 
 	refreshGUI()
 
@@ -57,7 +63,7 @@ func refreshGUI() {
 					gobless.NewColumn(
 						gobless.GridSizeFull,
 						renderInformationBox(),
-						renderItemsBox(),
+						renderItemsBox(boardX, boardY),
 					),
 				),
 			),
@@ -118,6 +124,7 @@ func moveNorth() {
 		 ...:=-====+++====================++=====++=================--:
 		 .......:...:......::.:..:::.:..:::..:...::........::.:...:....
 	`
+		boardY++
 		refreshGUI()
 	})
 }
@@ -166,6 +173,7 @@ func moveSouth() {
 	 	.............::.::-:.:------------------::.::..::.............
 	 	..............................................................
 	  `
+		boardY--
 		refreshGUI()
 	})
 }
@@ -214,6 +222,7 @@ func moveEast() {
 		 ..............................................................
 		 ..............................................................
 		`
+		boardX++
 		refreshGUI()
 	})
 }
@@ -262,6 +271,7 @@ func moveWest() {
 		 ..............................................................
 		 ..............................................................
 		 `
+		boardX--
 		refreshGUI()
 	})
 }
@@ -288,9 +298,11 @@ func renderControlBox(text string) *gobless.TextBox {
 	return controlBox
 }
 
-func renderItemsBox() *gobless.TextBox {
+func renderItemsBox(boardX int, boardY int) *gobless.TextBox {
 	itemsBox := gobless.NewTextBox()
 	itemsBox.SetTitle("Items")
+	formattedText := fmt.Sprintf("X: %d, Y: %d", boardX, boardY)
+	itemsBox.SetText(formattedText)
 	itemsBox.SetBorderColor(gobless.Color100)
 	return itemsBox
 }
