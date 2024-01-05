@@ -131,7 +131,9 @@ func moveNorth() {
 		 ...:=-====+++====================++=====++=================--:
 		 .......:...:......::.:..:::.:..:::..:...::........::.:...:....
 	`
-		userPositionY++
+		if userPositionY < maxBoardY {
+			userPositionY++
+		}
 		refreshGUI()
 	})
 }
@@ -180,7 +182,9 @@ func moveSouth() {
 	 	.............::.::-:.:------------------::.::..::.............
 	 	..............................................................
 	  `
-		userPositionY--
+		if userPositionY > minBoardY {
+			userPositionY--
+		}
 		refreshGUI()
 	})
 }
@@ -229,7 +233,9 @@ func moveEast() {
 		 ..............................................................
 		 ..............................................................
 		`
-		userPositionX++
+		if userPositionX < maxBoardX {
+			userPositionX++
+		}
 		refreshGUI()
 	})
 }
@@ -278,7 +284,9 @@ func moveWest() {
 		 ..............................................................
 		 ..............................................................
 		 `
-		userPositionX--
+		if userPositionX > minBoardX {
+			userPositionX--
+		}
 		refreshGUI()
 	})
 }
