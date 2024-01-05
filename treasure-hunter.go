@@ -8,6 +8,13 @@ import (
 	"github.com/liamg/gobless"
 )
 
+const (
+	maxBoardX = 10
+	minBoardX = -10
+	maxBoardY = 10
+	minBoardY = -10
+)
+
 var (
 	gui           *gobless.GUI
 	controlBox    *gobless.TextBox
