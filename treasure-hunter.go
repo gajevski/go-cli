@@ -9,12 +9,12 @@ import (
 )
 
 var (
-	gui         *gobless.GUI
-	controlBox  *gobless.TextBox
-	controlText string
-	gameText    string
-	boardX      int
-	boardY      int
+	gui           *gobless.GUI
+	controlBox    *gobless.TextBox
+	controlText   string
+	gameText      string
+	userPositionX int
+	userPositionY int
 )
 
 func main() {
@@ -30,8 +30,8 @@ func startGame() {
 
 	controlText = ""
 	gameText = ""
-	boardX = 0
-	boardY = 0
+	userPositionX = 0
+	userPositionY = 0
 
 	refreshGUI()
 
@@ -63,7 +63,7 @@ func refreshGUI() {
 					gobless.NewColumn(
 						gobless.GridSizeFull,
 						renderInformationBox(),
-						renderItemsBox(boardX, boardY),
+						renderItemsBox(userPositionX, userPositionY),
 					),
 				),
 			),
@@ -124,7 +124,7 @@ func moveNorth() {
 		 ...:=-====+++====================++=====++=================--:
 		 .......:...:......::.:..:::.:..:::..:...::........::.:...:....
 	`
-		boardY++
+		userPositionY++
 		refreshGUI()
 	})
 }
@@ -173,7 +173,7 @@ func moveSouth() {
 	 	.............::.::-:.:------------------::.::..::.............
 	 	..............................................................
 	  `
-		boardY--
+		userPositionY--
 		refreshGUI()
 	})
 }
@@ -222,7 +222,7 @@ func moveEast() {
 		 ..............................................................
 		 ..............................................................
 		`
-		boardX++
+		userPositionX++
 		refreshGUI()
 	})
 }
@@ -271,7 +271,7 @@ func moveWest() {
 		 ..............................................................
 		 ..............................................................
 		 `
-		boardX--
+		userPositionX--
 		refreshGUI()
 	})
 }
