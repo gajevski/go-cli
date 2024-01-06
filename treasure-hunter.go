@@ -12,7 +12,7 @@ type Location struct {
 	Name   string
 	StartX int
 	EndX   int
-	startY int
+	StartY int
 	EndY   int
 }
 
@@ -49,13 +49,22 @@ func startGame() {
 	userPositionX = 0
 	userPositionY = 0
 
-	refreshGUI()
+	locations = []Location{
+		{
+			Name:   "Dungeon",
+			StartX: 3,
+			EndX:   10,
+			StartY: 5,
+			EndY:   -5,
+		},
+	}
 
 	closeGame()
 	moveNorth()
 	moveSouth()
 	moveWest()
 	moveEast()
+	refreshGUI()
 
 	gui.HandleResize(func(event gobless.ResizeEvent) {
 		refreshGUI()
@@ -79,7 +88,7 @@ func refreshGUI() {
 					gobless.NewColumn(
 						gobless.GridSizeFull,
 						renderInformationBox(),
-						renderItemsBox(userPositionX, userPositionY),
+						renderPositionBox(userPositionX, userPositionY),
 					),
 				),
 			),
@@ -143,6 +152,7 @@ func moveNorth() {
 		if userPositionY < maxBoardY {
 			userPositionY++
 		}
+		checkUsersLocation()
 		refreshGUI()
 	})
 }
@@ -194,6 +204,7 @@ func moveSouth() {
 		if userPositionY > minBoardY {
 			userPositionY--
 		}
+		checkUsersLocation()
 		refreshGUI()
 	})
 }
@@ -245,6 +256,7 @@ func moveEast() {
 		if userPositionX < maxBoardX {
 			userPositionX++
 		}
+		checkUsersLocation()
 		refreshGUI()
 	})
 }
@@ -297,6 +309,7 @@ func moveWest() {
 		if userPositionX > minBoardX {
 			userPositionX--
 		}
+		checkUsersLocation()
 		refreshGUI()
 	})
 }
@@ -323,13 +336,13 @@ func renderControlBox(text string) *gobless.TextBox {
 	return controlBox
 }
 
-func renderItemsBox(boardX int, boardY int) *gobless.TextBox {
-	itemsBox := gobless.NewTextBox()
-	itemsBox.SetTitle("Items")
+func renderPositionBox(boardX int, boardY int) *gobless.TextBox {
+	positionBox := gobless.NewTextBox()
+	positionBox.SetTitle("Position")
 	formattedText := fmt.Sprintf("X: %d, Y: %d", boardX, boardY)
-	itemsBox.SetText(formattedText)
-	itemsBox.SetBorderColor(gobless.Color100)
-	return itemsBox
+	positionBox.SetText(formattedText)
+	positionBox.SetBorderColor(gobless.Color100)
+	return positionBox
 }
 
 func renderInformationBox() *gobless.TextBox {
@@ -346,4 +359,40 @@ func renderInformationBox() *gobless.TextBox {
     
     Navigate wisely and watch for clues. Your adventure begins now! Good luck!`)
 	return informationBox
+}
+
+func checkUsersLocation() {
+	for _, loc := range locations {
+		if userPositionX >= loc.StartX && userPositionX <= loc.EndX &&
+			userPositionY <= loc.StartY && userPositionY >= loc.EndY {
+			switch loc.Name {
+			case "Dungeon":
+				gameText = `
+				88888888888888888888888888888888888888888888888888888888888888888888888
+				88.._|      |  -.  |  .  -_-_ _-_  _-  _- -_ -  .'|   |.'|     |  _..88
+				88    -.._  |    | !  | .  -_ -__ -_ _- _-_-  .'  |.;'   |   _.!-'|  88
+				88      |  -!._  |   ;!  ;. _______________ ,'| .-' |   _!.i'     |  88
+				88..__  |     | -!._ |  .| |_______________||."'|  _!.;'   |     _|..88
+				88   |  "..__ |    | ";.| i|_|MMMMMMMMMMM|_|'| _!-|   |   _|..-|'    88
+				88   |      |  --..|_ |  ;!|l|MMoMMMMoMMM|1|.'j   |_..!-'|     |     88
+				88   |      |    |   | -,!_|_|MMMMP'YMMMM|_||.!-;'  |    |     |     88
+				88___|______|____!.,.!,.!,!|d|MMMo * loMM|p|,!,.!.,.!..__|_____|_____88
+				88      |     |    |  |  | |_|MMMMb,dMMMM|_|| |   |   |    |      |  88
+				88      |     |    |..!-;'i|r|MPYMoMMMMoM|r| | -..|   |    |      |  88
+				88      |    _!.-j'  | _!,"|_|M<>MMMMoMMM|_||!._|   i-!.._ |      |  88
+				88     _!.-'|    | _."|  !;|1|MbdMMoMMMMM|l| .|  -._|    |  -.._  |  88
+				88..-i'     |  _.''|  !-| !|_|MMMoMMMMoMM|_|.| -. |   ._ |     |  "..88
+				88   |      |.|    |.|  !| |u|MoMMMMoMMMM|n|| . | !   |  ".    |     88
+				88   |  _.-'  |  .'  |.' |/|_|MMMMoMMMMoM|_|! | !   ,.|    |-._|     88
+				88  _!"'|     !.'|  .'| .'|[@]MMMMMMMMMMM[@] \|   . |  ._  |    -._  88
+				88-'    |   .'   |.|  |/| /                 \| .  | !    |.|      | -88
+				88      |_.'|   .' | .' |/                   \  \ |   .  |  ._-   |  88
+				88     .'   | .'   |/|  /                     \ | !   | .|     .  |  88
+				88  _.'     !'|   .' | /                       \|     |   .    | .|  88
+				88888888888888888888888888888888888888888888888888888888888888888888888
+				`
+				break
+			}
+		}
+	}
 }
