@@ -8,6 +8,14 @@ import (
 	"github.com/liamg/gobless"
 )
 
+type Location struct {
+	Name   string
+	StartX int
+	EndX   int
+	startY int
+	EndY   int
+}
+
 const (
 	maxBoardX = 10
 	minBoardX = -10
@@ -22,6 +30,7 @@ var (
 	gameText      string
 	userPositionX int
 	userPositionY int
+	locations     []Location
 )
 
 func main() {
@@ -284,6 +293,7 @@ func moveWest() {
 		 ..............................................................
 		 ..............................................................
 		 `
+
 		if userPositionX > minBoardX {
 			userPositionX--
 		}
