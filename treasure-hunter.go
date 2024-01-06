@@ -54,8 +54,15 @@ func startGame() {
 			Name:   "Dungeon",
 			StartX: 3,
 			EndX:   10,
-			StartY: 5,
-			EndY:   -5,
+			StartY: 3,
+			EndY:   -3,
+		},
+		{
+			Name:   "Town",
+			StartX: 0,
+			EndX:   10,
+			StartY: 10,
+			EndY:   5,
 		},
 	}
 
@@ -364,7 +371,7 @@ func renderInformationBox() *gobless.TextBox {
 func checkUsersLocation() {
 	for _, loc := range locations {
 		if userPositionX >= loc.StartX && userPositionX <= loc.EndX &&
-			userPositionY <= loc.StartY && userPositionY >= loc.EndY {
+			userPositionY >= loc.EndY && userPositionY <= loc.StartY {
 			switch loc.Name {
 			case "Dungeon":
 				gameText = `
@@ -391,7 +398,8 @@ func checkUsersLocation() {
 				88  _.'     !'|   .' | /                       \|     |   .    | .|  88
 				88888888888888888888888888888888888888888888888888888888888888888888888
 				`
-				break
+			case "Town":
+				gameText = "Town"
 			}
 		}
 	}
