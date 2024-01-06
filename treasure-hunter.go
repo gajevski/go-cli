@@ -59,10 +59,17 @@ func startGame() {
 		},
 		{
 			Name:   "Town",
-			StartX: 0,
+			StartX: -10,
 			EndX:   10,
 			StartY: 10,
 			EndY:   5,
+		},
+		{
+			Name:   "Forest",
+			StartX: -10,
+			EndX:   -3,
+			StartY: 3,
+			EndY:   -10,
 		},
 	}
 
@@ -400,6 +407,8 @@ func checkUsersLocation() {
 				`
 			case "Town":
 				gameText = "Town"
+			case "Forest":
+				gameText = "Forest"
 			}
 		}
 	}
